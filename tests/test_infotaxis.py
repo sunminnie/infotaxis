@@ -275,7 +275,8 @@ def show_infotaxis_demo(
     ax_main.imshow(conc.T, origin='lower', extent=extent, cmap='hot', zorder=0)
 
     # plot trajectory and hits
-    ax_main.plot(traj[:, 0], traj[:, 1], lw=2, color='w', zorder=1)
+    traj_color = 'w' if plume_shape == 'ideal' else 'gray'
+    ax_main.plot(traj[:, 0], traj[:, 1], lw=2, color=traj_color, zorder=1)
     ax_main.scatter(
         traj[hs > 0, 0], traj[hs > 0, 1], marker='D', s=50, c='c', zorder=2)
     # mark starting position
