@@ -237,16 +237,20 @@ def show_update_log_p_src_gives_correct_qualitative_behavior_for_examples(
 def show_infotaxis_demo(
         seed=0, grid=(101, 51), src_pos=(.1, .5), start_pos=(1.9, .9),
         dt=.1, speed=.2, max_dur=40, th=.5, src_radius=.02,
-        w=.5, d=.05, r=5, a=.003, tau=100):
+        w=.5, d=.05, r=5, a=.003, tau=100, plume_shape='ideal'):
     """
     Run a quick infotaxis demo and plot the resulting trajectory.
     """
     from infotaxis import simulate
-    from plume_processing import IdealInfotaxisPlume
+    from plume_processing import IdealInfotaxisPlume, RectangularPlume
     np.random.seed(seed)
 
-    plume = IdealInfotaxisPlume(
-        src_pos=src_pos, w=w, d=d, r=r, a=a, tau=tau, dt=dt)
+    if plume_shape == 'ideal':
+        plume = IdealInfotaxisPlume(
+            src_pos=src_pos, w=w, d=d, r=r, a=a, tau=tau, dt=dt)
+    else:
+        plume = RectangularPlume(
+            src_pos=src_pos, w=w, d=d, r=r, a=a, tau=tau, dt=dt)
 
     # run infotaxis simulation
     traj, hs, src_found, log_p_srcs = simulate(
